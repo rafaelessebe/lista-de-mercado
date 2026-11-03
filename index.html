@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSB Images | Hub de Ferramentas para Imagens</title>
+    <title>SmartMarket — Lista de Mercado</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,281 +12,204 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0b0f19',
-                        darkCard: '#161e2e',
-                        darkBorder: '#1f293d',
-                        brandAccent: '#f59e0b'
+                        brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
                     }
                 }
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .smooth-transition { transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 999px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(156, 163, 175, 0.7); }
-    </style>
 </head>
-<body class="bg-gray-50 dark:bg-darkBg text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased smooth-transition">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-full flex flex-col font-sans transition-colors duration-200">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-darkBg/80 border-b border-gray-200 dark:border-darkBorder px-4 lg:px-8 h-16 flex items-center justify-between">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTool('home')">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20 text-white font-extrabold text-lg">
-                RSB
+    <!-- Header -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="p-2 bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 rounded-xl text-xl font-bold">🛒</span>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight">SmartMarket</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Sua lista de compras inteligente</p>
+                </div>
             </div>
-            <div>
-                <h1 class="font-bold text-lg leading-none tracking-tight">RSB Images</h1>
-                <span class="text-xs text-gray-500 dark:text-gray-400">Suite Criativa &amp; Processamento</span>
-            </div>
-        </div>
-
-        <div class="flex items-center space-x-3">
-            <button id="back-home-btn" onclick="switchTool('home')" class="hidden px-3 py-1.5 text-xs font-semibold rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 smooth-transition">
-                ← Voltar ao Menu
-            </button>
-            <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-darkCard hover:bg-gray-200 dark:hover:bg-gray-700 smooth-transition border border-gray-200 dark:border-darkBorder" title="Alternar Tema">
-                <svg id="theme-icon" class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
+            <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round5" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             </button>
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
-
-        <!-- HOME / TOOL SELECTOR -->
-        <div id="view-home" class="space-y-8 animate-fade">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Ferramentas de Imagem Profissionais</h2>
-                <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">Edite, corte, redimensione e remova fundos direto no seu navegador. 100% privado, rápido e sem enviar arquivos para servidores externos.</p>
+    <!-- Main Container -->
+    <main class="max-w-3xl w-full mx-auto px-4 py-6 flex-grow">
+        
+        <!-- Add Item Form -->
+        <form id="item-form" class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm mb-6 space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                <div class="sm:col-span-6">
+                    <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Item</label>
+                    <input type="text" id="item-name" placeholder="Ex: Café arábica, Leite desnatado..." required class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div class="sm:col-span-3">
+                    <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Quantidade</label>
+                    <input type="text" id="item-qty" placeholder="Ex: 2 un, 1kg" value="1 un" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div class="sm:col-span-3">
+                    <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Categoria</label>
+                    <select id="item-category" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <option value="Hortifruti">🍎 Hortifruti</option>
+                        <option value="Mercearia">🍞 Mercearia</option>
+                        <option value="Laticínios">🧀 Laticínios</option>
+                        <option value="Açougue">🥩 Açougue</option>
+                        <option value="Limpeza">🧹 Limpeza</option>
+                        <option value="Bebidas">🧃 Bebidas</option>
+                        <option value="Outros">📦 Outros</option>
+                    </select>
+                </div>
             </div>
+            <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-xl text-sm transition shadow-sm">Adicionar à Lista</button>
+        </form>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <!-- Card 1: Remover Fundo -->
-                <div onclick="openTool('bg-remove')" class="group p-6 rounded-2xl bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 cursor-pointer smooth-transition flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-4 group-hover:scale-110 smooth-transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                        </div>
-                        <h3 class="font-bold text-lg mb-1">Remover Fundo</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Remova fundos brancos, sólidos ou chaveie cores indesejadas instantaneamente.</p>
-                    </div>
-                    <span class="mt-6 inline-flex items-center text-xs font-bold text-purple-500 group-hover:translate-x-1 smooth-transition">Abrir ferramenta →</span>
-                </div>
-
-                <!-- Card 2: Recortar Imagem -->
-                <div onclick="openTool('crop')" class="group p-6 rounded-2xl bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 cursor-pointer smooth-transition flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 group-hover:scale-110 smooth-transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        </div>
-                        <h3 class="font-bold text-lg mb-1">Recortar Imagem</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Corte em proporção quadrada 1:1, redondo/circular ou escolha proporções livres.</p>
-                    </div>
-                    <span class="mt-6 inline-flex items-center text-xs font-bold text-amber-500 group-hover:translate-x-1 smooth-transition">Abrir ferramenta →</span>
-                </div>
-
-                <!-- Card 3: Redimensionar -->
-                <div onclick="openTool('resize')" class="group p-6 rounded-2xl bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 cursor-pointer smooth-transition flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-4 group-hover:scale-110 smooth-transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
-                        </div>
-                        <h3 class="font-bold text-lg mb-1">Redimensionar</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Altere a largura e altura em pixels com trava de proporção opcional.</p>
-                    </div>
-                    <span class="mt-6 inline-flex items-center text-xs font-bold text-blue-500 group-hover:translate-x-1 smooth-transition">Abrir ferramenta →</span>
-                </div>
-
-                <!-- Card 4: Editor Avançado -->
-                <div onclick="openTool('editor')" class="group p-6 rounded-2xl bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 cursor-pointer smooth-transition flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-4 group-hover:scale-110 smooth-transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        </div>
-                        <h3 class="font-bold text-lg mb-1">Editor Avançado</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Ajuste brilho, contraste, saturação, filtros P&amp;B, negativo, granulação e texturas.</p>
-                    </div>
-                    <span class="mt-6 inline-flex items-center text-xs font-bold text-emerald-500 group-hover:translate-x-1 smooth-transition">Abrir ferramenta →</span>
-                </div>
+        <!-- Actions / Filters -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-3">
+            <div class="flex space-x-2 text-xs">
+                <button onclick="setFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium transition">Todos</button>
+                <button onclick="setFilter('pending')" id="filter-pending" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium transition">Pendentes</button>
+                <button onclick="setFilter('completed')" id="filter-completed" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium transition">Comprados</button>
+            </div>
+            <div class="flex space-x-2 text-xs">
+                <button onclick="clearCompleted()" class="text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition">Limpar Comprados</button>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <button onclick="clearAll()" class="text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition">Zerar Lista</button>
             </div>
         </div>
 
-        <!-- WORKSPACE (ESCONDIDO ATÉ SELECIONAR FERRAMENTA) -->
-        <div id="view-workspace" class="hidden flex-1 flex flex-col gap-6">
-            <!-- Título da ferramenta ativa -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-darkBorder pb-4">
-                <div>
-                    <h2 id="workspace-title" class="text-2xl font-bold">Ferramenta</h2>
-                    <p id="workspace-desc" class="text-xs text-gray-500 dark:text-gray-400">Envie uma imagem para começar o processamento.</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <label class="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-xs font-semibold rounded-xl cursor-pointer smooth-transition flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        Trocar Imagem
-                        <input type="file" id="image-upload-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
-                    </label>
-                    <button id="download-btn" onclick="downloadResult()" class="hidden px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-amber-500/20 smooth-transition flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Baixar Resultado
-                    </button>
-                </div>
-            </div>
+        <!-- List container -->
+        <div id="items-list" class="space-y-2.5">
+            <!-- Rendered dynamically -->
+        </div>
 
-            <!-- UPLOAD DROPZONE INICIAL -->
-            <div id="dropzone" class="flex-1 border-2 border-dashed border-gray-300 dark:border-darkBorder rounded-3xl p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:border-amber-500/60 dark:hover:border-amber-500/60 bg-white/50 dark:bg-darkCard/50 smooth-transition min-h-[400px]" onclick="document.getElementById('image-upload-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-                <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                </div>
-                <h3 class="text-lg font-bold mb-1">Arraste e solte sua imagem aqui</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Suporta PNG, JPG, WEBP de qualquer tamanho</p>
-                <span class="px-4 py-2 bg-amber-500 text-white text-xs font-semibold rounded-xl shadow-md">Explorar arquivos</span>
-            </div>
-
-            <!-- PAINEL DE TRABALHO DA FERRAMENTA ATIVA -->
-            <div id="tool-canvas-container" class="hidden flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                
-                <!-- VISUALIZADOR / PREVIEW -->
-                <div class="lg:col-span-8 bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder rounded-3xl p-4 flex flex-col items-center justify-center min-h-[450px] relative overflow-hidden shadow-sm">
-                    <div id="canvas-wrapper" class="relative max-w-full max-h-[600px] flex items-center justify-center overflow-auto">
-                        <canvas id="main-canvas" class="max-w-full h-auto rounded-xl shadow-md"></canvas>
-                    </div>
-                </div>
-
-                <!-- CONTROLES ESPECÍFICOS DA FERRAMENTA -->
-                <div class="lg:col-span-4 bg-white dark:bg-darkCard border border-gray-200 dark:border-darkBorder rounded-3xl p-6 flex flex-col gap-5 shadow-sm">
-                    
-                    <!-- 1. REMOVER FUNDO CONTROLES -->
-                    <div id="panel-bg-remove" class="tool-panel hidden space-y-4">
-                        <h3 class="font-bold text-sm tracking-wide uppercase text-amber-500">Remoção Inteligente</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Selecione o modo de remoção de fundo e ajuste a tolerância de cor.</p>
-                        <div>
-                            <label class="block text-xs font-semibold mb-2">Modo de Remoção:</label>
-                            <select id="bg-mode" onchange="processBgRemoval()" class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-darkBorder rounded-xl p-2.5 text-xs outline-none focus:border-amber-500">
-                                <option value="white">Remover Fundo Branco</option>
-                                <option value="black">Remover Fundo Preto</option>
-                                <option value="chroma">Chroma Key (Cor do Canto Superior)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span class="font-medium">Tolerância:</span>
-                                <span id="bg-tolerance-val">30</span>
-                            </div>
-                            <input type="range" id="bg-tolerance" min="5" max="120" value="30" oninput="document.getElementById('bg-tolerance-val').innerText=this.value; processBgRemoval()" class="w-full accent-amber-500">
-                        </div>
-                        <button onclick="processBgRemoval()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-md smooth-transition">Processar Remoção</button>
-                    </div>
-
-                    <!-- 2. RECORTAR CONTROLES -->
-                    <div id="panel-crop" class="tool-panel hidden space-y-4">
-                        <h3 class="font-bold text-sm tracking-wide uppercase text-amber-500">Opções de Corte</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Escolha o formato de corte desejado para sua imagem.</p>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="setCropMode('square')" id="btn-crop-square" class="p-3 rounded-xl border border-gray-200 dark:border-darkBorder text-xs font-semibold hover:border-amber-500 smooth-transition">Quadrado 1:1</button>
-                            <button onclick="setCropMode('circle')" id="btn-crop-circle" class="p-3 rounded-xl border border-gray-200 dark:border-darkBorder text-xs font-semibold hover:border-amber-500 smooth-transition">Redondo</button>
-                            <button onclick="setCropMode('free')" id="btn-crop-free" class="p-3 rounded-xl border border-gray-200 dark:border-darkBorder text-xs font-semibold hover:border-amber-500 smooth-transition">Livre / Central</button>
-                        </div>
-                        <button onclick="applyCrop()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-md smooth-transition">Aplicar Recorte</button>
-                    </div>
-
-                    <!-- 3. REDIMENSIONAR CONTROLES -->
-                    <div id="panel-resize" class="tool-panel hidden space-y-4">
-                        <h3 class="font-bold text-sm tracking-wide uppercase text-amber-500">Dimensões em Pixels</h3>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-xs font-semibold mb-1">Largura (px):</label>
-                                <input type="number" id="resize-w" oninput="onResizeWidthInput()" class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-darkBorder rounded-xl p-2.5 text-xs outline-none focus:border-amber-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold mb-1">Altura (px):</label>
-                                <input type="number" id="resize-h" oninput="onResizeHeightInput()" class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-darkBorder rounded-xl p-2.5 text-xs outline-none focus:border-amber-500">
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="checkbox" id="aspect-lock" checked class="accent-amber-500 w-4 h-4">
-                            <label for="aspect-lock" class="text-xs font-medium cursor-pointer">Manter Proporção Original</label>
-                        </div>
-                        <button onclick="applyResize()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-md smooth-transition">Redimensionar Imagem</button>
-                    </div>
-
-                    <!-- 4. EDITOR AVANÇADO CONTROLES -->
-                    <div id="panel-editor" class="tool-panel hidden space-y-4 max-h-[500px] overflow-y-auto pr-2">
-                        <h3 class="font-bold text-sm tracking-wide uppercase text-amber-500">Ajustes &amp; Filtros</h3>
-                        
-                        <!-- Filtros Rápidos -->
-                        <div>
-                            <label class="block text-xs font-semibold mb-2">Filtros Predefinidos:</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <button onclick="applyPreset('normal')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">Normal</button>
-                                <button onclick="applyPreset('grayscale')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">P &amp; B</button>
-                                <button onclick="applyPreset('sepia')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">Sépia</button>
-                                <button onclick="applyPreset('negative')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">Negativo</button>
-                                <button onclick="applyPreset('vintage')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">Vintage</button>
-                                <button onclick="applyPreset('cool')" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-semibold hover:bg-amber-500 hover:text-white">Frio</button>
-                            </div>
-                        </div>
-
-                        <hr class="border-gray-200 dark:border-darkBorder">
-
-                        <!-- Sliders de Ajuste -->
-                        <div class="space-y-3">
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Brilho</span><span id="val-brightness">0</span></div>
-                                <input type="range" id="filter-brightness" min="-100" max="100" value="0" oninput="updateEditor()" class="w-full accent-amber-500">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Contraste</span><span id="val-contrast">0</span></div>
-                                <input type="range" id="filter-contrast" min="-100" max="100" value="0" oninput="updateEditor()" class="w-full accent-amber-500">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Saturação</span><span id="val-saturation">0</span></div>
-                                <input type="range" id="filter-saturation" min="-100" max="100" value="0" oninput="updateEditor()" class="w-full accent-amber-500">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Temperatura (Quente/Frio)</span><span id="val-warmth">0</span></div>
-                                <input type="range" id="filter-warmth" min="-100" max="100" value="0" oninput="updateEditor()" class="w-full accent-amber-500">
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Granulação / Ruído</span><span id="val-noise">0</span></div>
-                                <input type="range" id="filter-noise" min="0" max="50" value="0" oninput="updateEditor()" class="w-full accent-amber-500">
-                            </div>
-                        </div>
-
-                        <button onclick="resetEditor()" class="w-full py-2 bg-gray-200 dark:bg-gray-800 text-xs font-bold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 smooth-transition">Resetar Ajustes</button>
-                    </div>
-
-                </div>
-
-            </div>
-
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-12">
+            <p class="text-4xl mb-2">🛒</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Sua lista está vazia. Adicione itens acima!</p>
         </div>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-gray-200 dark:border-darkBorder py-6 text-center text-xs text-gray-500 dark:text-gray-400">
-        RSB Images Hub &copy; 2026 &bull; Processamento 100% no Navegador via HTML5 Canvas
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200 dark:border-slate-800 mt-auto">
+        SmartMarket &bull; Hospedado no GitHub Pages
     </footer>
 
-    <!-- SCRIPT DA APLICAÇÃO -->
+    <!-- Script -->
     <script>
-        let currentTool = 'home';
-        let originalImage = null;
-        let workingCanvas = document.createElement('canvas');
-        let workingCtx = workingCanvas.getContext('2d');
-        let originalWidth = 0;
-        let originalHeight = 0;
+        let items = JSON.parse(localStorage.getItem('smartmarket_items')) || [
+            { id: '1', name: 'Café Moído', qty: '2 pacotes', category: 'Mercearia', completed: false },
+            { id: '2', name: 'Leite Integral', qty: '4 litros', category: 'Laticínios', completed: true },
+            { id: '3', name: 'Banana Prata', qty: '1 cacho', category: 'Hortifruti', completed: false }
+        ];
+        let currentFilter = 'all';
 
-        // Dark / Light Mode Toggle
-        function toggleTheme() {
+        const form = document.getElementById('item-form');
+        const nameInput = document.getElementById('item-name');
+        const qtyInput = document.getElementById('item-qty');
+        const categoryInput = document.getElementById('item-category');
+        const listContainer = document.getElementById('items-list');
+        const emptyState = document.getElementById('empty-state');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newItem = {
+                id: Date.now().toString(),
+                name: nameInput.value.trim(),
+                qty: qtyInput.value.trim() || '1 un',
+                category: categoryInput.value,
+                completed: false
+            };
+            items.push(newItem);
+            saveAndRender();
+            nameInput.value = '';
+            qtyInput.value = '1 un';
+            nameInput.focus();
+        });
+
+        function toggleItem(id) {
+            items = items.map(item => item.id === id ? { ...item, completed: !item.completed } : item);
+            saveAndRender();
+        }
+
+        function deleteItem(id) {
+            items = items.filter(item => item.id !== id);
+            saveAndRender();
+        }
+
+        function clearCompleted() {
+            items = items.filter(item => !item.completed);
+            saveAndRender();
+        }
+
+        function clearAll() {
+            if (confirm('Deseja realmente limpar toda a lista?')) {
+                items = [];
+                saveAndRender();
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            ['all', 'pending', 'completed'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if (f === filter) {
+                    btn.className = 'px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium transition';
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium transition';
+                }
+            });
+            render();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('smartmarket_items', JSON.stringify(items));
+            render();
+        }
+
+        function render() {
+            listContainer.innerHTML = '';
+            const filtered = items.filter(item => {
+                if (currentFilter === 'pending') return !item.completed;
+                if (currentFilter === 'completed') return item.completed;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = `flex items-center justify-between p-3.5 rounded-2xl border transition bg-white dark:bg-slate-900 ${item.completed ? 'border-slate-200 dark:border-slate-800 opacity-60' : 'border-slate-200 dark:border-slate-800 shadow-sm'}`;
+                
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3 cursor-pointer flex-grow" onclick="toggleItem('${item.id}')">
+                        <input type="checkbox" ${item.completed ? 'checked' : ''} class="w-4 h-4 text-brand-600 rounded focus:ring-brand-500 accent-brand-600 pointer-events-none">
+                        <div>
+                            <p class="text-sm font-medium ${item.completed ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${escapeHtml(item.name)}</p>
+                            <span class="text-xs text-slate-400 dark:text-slate-500">${escapeHtml(item.category)} &bull; ${escapeHtml(item.qty)}</span>
+                        </div>
+                    </div>
+                    <button onclick="deleteItem('${item.id}')" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function toggleDarkMode() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
@@ -297,358 +220,12 @@
             }
         }
 
-        // Init Theme
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
+        // Init theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
 
-        // Navegação de Ferramentas
-        function openTool(toolId) {
-            currentTool = toolId;
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-workspace').classList.remove('hidden');
-            document.getElementById('back-home-btn').classList.remove('hidden');
-
-            const titles = {
-                'bg-remove': { title: 'Remover Fundo', desc: 'Remova fundos brancos ou escolha uma cor base para isolar seu objeto.' },
-                'crop': { title: 'Recortar Imagem', desc: 'Enquadre sua imagem em proporção quadrada, circular ou livre.' },
-                'resize': { title: 'Redimensionar Imagem', desc: 'Modifique as dimensões exatas em pixels mantendo alta qualidade.' },
-                'editor': { title: 'Editor Avançado', desc: 'Aplique filtros, ajuste brilho, contraste, granulação e cor.' }
-            };
-
-            document.getElementById('workspace-title').innerText = titles[toolId].title;
-            document.getElementById('workspace-desc').innerText = titles[toolId].desc;
-
-            // Mostrar painel específico
-            document.querySelectorAll('.tool-panel').forEach(p => p.classList.add('hidden'));
-            const panel = document.getElementById('panel-' + toolId);
-            if (panel) panel.classList.remove('hidden');
-
-            if (!originalImage) {
-                // Mostrar dropzone se nenhuma imagem foi carregada
-                document.getElementById('dropzone').classList.remove('hidden');
-                document.getElementById('tool-canvas-container').classList.add('hidden');
-                document.getElementById('download-btn').classList.add('hidden');
-            } else {
-                renderCurrentToolState();
-            }
-        }
-
-        function switchTool(view) {
-            if (view === 'home') {
-                currentTool = 'home';
-                document.getElementById('view-home').classList.remove('hidden');
-                document.getElementById('view-workspace').classList.add('hidden');
-                document.getElementById('back-home-btn').classList.add('hidden');
-            }
-        }
-
-        // Drag & Drop / File Handling
-        function handleDragOver(e) { e.preventDefault(); e.stopPropagation(); }
-        function handleDragLeave(e) { e.preventDefault(); e.stopPropagation(); }
-        function handleDrop(e) {
-            e.preventDefault(); e.stopPropagation();
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                loadImageFromFile(e.dataTransfer.files[0]);
-            }
-        }
-        function handleImageUpload(e) {
-            if (e.target.files && e.target.files[0]) {
-                loadImageFromFile(e.target.files[0]);
-            }
-        }
-
-        function loadImageFromFile(file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    originalImage = img;
-                    originalWidth = img.width;
-                    originalHeight = img.height;
-
-                    // Inicializar canvas de trabalho
-                    workingCanvas.width = originalWidth;
-                    workingCanvas.height = originalHeight;
-                    workingCtx.drawImage(img, 0, 0);
-
-                    // UI Updates
-                    document.getElementById('dropzone').classList.add('hidden');
-                    document.getElementById('tool-canvas-container').classList.remove('hidden');
-                    document.getElementById('download-btn').classList.remove('hidden');
-
-                    if (currentTool === 'resize') {
-                        document.getElementById('resize-w').value = originalWidth;
-                        document.getElementById('resize-h').value = originalHeight;
-                    }
-
-                    renderCurrentToolState();
-                }
-                img.src = event.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function renderCurrentToolState() {
-            if (!originalImage) return;
-            const canvas = document.getElementById('main-canvas');
-            canvas.width = workingCanvas.width;
-            canvas.height = workingCanvas.height;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            ctx.drawImage(workingCanvas, 0, 0);
-
-            if (currentTool === 'bg-remove') {
-                processBgRemoval();
-            } else if (currentTool === 'editor') {
-                updateEditor();
-            }
-        }
-
-        // --- 1. REMOVER FUNDO LOGICA ---
-        function processBgRemoval() {
-            if (!originalImage) return;
-            const mode = document.getElementById('bg-mode').value;
-            const tolerance = parseInt(document.getElementById('bg-tolerance').value);
-
-            const canvas = document.getElementById('main-canvas');
-            canvas.width = originalWidth;
-            canvas.height = originalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImage, 0, 0);
-
-            const imgData = ctx.getImageData(0, 0, originalWidth, originalHeight);
-            const data = imgData.data;
-
-            let targetR = 255, targetG = 255, targetB = 255;
-            if (mode === 'black') { targetR = 0; targetG = 0; targetB = 0; }
-            else if (mode === 'chroma') {
-                // Amostra do canto superior esquerdo
-                targetR = data[0]; targetG = data[1]; targetB = data[2];
-            }
-
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i], g = data[i+1], b = data[i+2];
-                const diff = Math.abs(r - targetR) + Math.abs(g - targetG) + Math.abs(b - targetB);
-                if (mode === 'white' && r > (255 - tolerance) && g > (255 - tolerance) && b > (255 - tolerance)) {
-                    data[i+3] = 0; // Transparente
-                } else if (mode === 'black' && r < tolerance && g < tolerance && b < tolerance) {
-                    data[i+3] = 0;
-                } else if (mode === 'chroma' && diff < (tolerance * 3)) {
-                    data[i+3] = 0;
-                }
-            }
-
-            ctx.putImageData(imgData, 0, 0);
-            // Sincronizar com working canvas
-            workingCanvas.width = originalWidth;
-            workingCanvas.height = originalHeight;
-            workingCtx.putImageData(imgData, 0, 0);
-        }
-
-        // --- 2. RECORTAR LOGICA ---
-        let currentCropMode = 'square';
-        function setCropMode(mode) {
-            currentCropMode = mode;
-            ['square', 'circle', 'free'].forEach(m => {
-                const btn = document.getElementById('btn-crop-' + m);
-                if (m === mode) {
-                    btn.classList.add('border-amber-500', 'bg-amber-500/10', 'text-amber-500');
-                } else {
-                    btn.classList.remove('border-amber-500', 'bg-amber-500/10', 'text-amber-500');
-                }
-            });
-        }
-        setCropMode('square');
-
-        function applyCrop() {
-            if (!originalImage) return;
-            const size = Math.min(originalWidth, originalHeight);
-            let sx = 0, sy = 0, sw = originalWidth, sh = originalHeight;
-
-            if (currentCropMode === 'square') {
-                sx = (originalWidth - size) / 2;
-                sy = (originalHeight - size) / 2;
-                sw = size; sh = size;
-            } else if (currentCropMode === 'circle') {
-                sx = (originalWidth - size) / 2;
-                sy = (originalHeight - size) / 2;
-                sw = size; sh = size;
-            } else {
-                // Livre / Central 80%
-                sw = originalWidth * 0.8;
-                sh = originalHeight * 0.8;
-                sx = (originalWidth - sw) / 2;
-                sy = (originalHeight - sh) / 2;
-            }
-
-            const canvas = document.getElementById('main-canvas');
-            canvas.width = sw;
-            canvas.height = sh;
-            const ctx = canvas.getContext('2d');
-
-            if (currentCropMode === 'circle') {
-                ctx.beginPath();
-                ctx.arc(sw/2, sh/2, sw/2, 0, Math.PI * 2);
-                ctx.clip();
-            }
-
-            ctx.drawImage(originalImage, sx, sy, sw, sh, 0, 0, sw, sh);
-
-            workingCanvas.width = sw;
-            workingCanvas.height = sh;
-            workingCtx.clearRect(0,0,sw,sh);
-            workingCtx.drawImage(canvas, 0, 0);
-            alert('Recorte aplicado com sucesso!');
-        }
-
-        // --- 3. REDIMENSIONAR LOGICA ---
-        function onResizeWidthInput() {
-            if (!document.getElementById('aspect-lock').checked) return;
-            const w = parseInt(document.getElementById('resize-w').value) || 0;
-            if (originalWidth > 0) {
-                const h = Math.round(w * (originalHeight / originalWidth));
-                document.getElementById('resize-h').value = h;
-            }
-        }
-        function onResizeHeightInput() {
-            if (!document.getElementById('aspect-lock').checked) return;
-            const h = parseInt(document.getElementById('resize-h').value) || 0;
-            if (originalHeight > 0) {
-                const w = Math.round(h * (originalWidth / originalHeight));
-                document.getElementById('resize-w').value = w;
-            }
-        }
-        function applyResize() {
-            if (!originalImage) return;
-            const w = parseInt(document.getElementById('resize-w').value);
-            const h = parseInt(document.getElementById('resize-h').value);
-            if (!w || !h) return alert('Insira dimensões válidas.');
-
-            const canvas = document.getElementById('main-canvas');
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImage, 0, 0, w, h);
-
-            workingCanvas.width = w;
-            workingCanvas.height = h;
-            workingCtx.clearRect(0,0,w,h);
-            workingCtx.drawImage(canvas, 0, 0);
-            alert('Imagem redimensionada com sucesso!');
-        }
-
-        // --- 4. EDITOR AVANÇADO LOGICA ---
-        function applyPreset(preset) {
-            document.getElementById('filter-brightness').value = 0;
-            document.getElementById('filter-contrast').value = 0;
-            document.getElementById('filter-saturation').value = 0;
-            document.getElementById('filter-warmth').value = 0;
-            document.getElementById('filter-noise').value = 0;
-
-            if (preset === 'grayscale') {
-                document.getElementById('filter-saturation').value = -100;
-            } else if (preset === 'sepia') {
-                document.getElementById('filter-contrast').value = 20;
-                document.getElementById('filter-warmth').value = 80;
-            } else if (preset === 'negative') {
-                document.getElementById('filter-contrast').value = 100;
-                document.getElementById('filter-brightness').value = -50;
-            } else if (preset === 'vintage') {
-                document.getElementById('filter-contrast').value = 15;
-                document.getElementById('filter-warmth').value = 40;
-                document.getElementById('filter-noise').value = 10;
-            } else if (preset === 'cool') {
-                document.getElementById('filter-warmth').value = -60;
-            }
-            updateEditor();
-        }
-
-        function resetEditor() {
-            document.getElementById('filter-brightness').value = 0;
-            document.getElementById('filter-contrast').value = 0;
-            document.getElementById('filter-saturation').value = 0;
-            document.getElementById('filter-warmth').value = 0;
-            document.getElementById('filter-noise').value = 0;
-            updateEditor();
-        }
-
-        function updateEditor() {
-            if (!originalImage) return;
-            const b = parseInt(document.getElementById('filter-brightness').value);
-            const c = parseInt(document.getElementById('filter-contrast').value);
-            const s = parseInt(document.getElementById('filter-saturation').value);
-            const w = parseInt(document.getElementById('filter-warmth').value);
-            const n = parseInt(document.getElementById('filter-noise').value);
-
-            document.getElementById('val-brightness').innerText = b;
-            document.getElementById('val-contrast').innerText = c;
-            document.getElementById('val-saturation').innerText = s;
-            document.getElementById('val-warmth').innerText = w;
-            document.getElementById('val-noise').innerText = n;
-
-            const canvas = document.getElementById('main-canvas');
-            canvas.width = originalWidth;
-            canvas.height = originalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(originalImage, 0, 0);
-
-            const imgData = ctx.getImageData(0, 0, originalWidth, originalHeight);
-            const data = imgData.data;
-
-            const factorC = (259 * (c + 255)) / (255 * (259 - c));
-
-            for (let i = 0; i < data.length; i += 4) {
-                let red = data[i], green = data[i+1], blue = data[i+2];
-
-                // Brilho
-                red += b; green += b; blue += b;
-
-                // Contraste
-                red = factorC * (red - 128) + 128;
-                green = factorC * (green - 128) + 128;
-                blue = factorC * (blue - 128) + 128;
-
-                // Saturação
-                if (s !== 0) {
-                    const avg = 0.299 * red + 0.587 * green + 0.114 * blue;
-                    const satFactor = (s + 100) / 100;
-                    red = avg + satFactor * (red - avg);
-                    green = avg + satFactor * (green - avg);
-                    blue = avg + satFactor * (blue - avg);
-                }
-
-                // Temperatura (Warmth)
-                if (w > 0) { red += w * 0.5; blue -= w * 0.5; }
-                else if (w < 0) { red += w * 0.5; blue -= w * 0.5; }
-
-                // Ruído
-                if (n > 0) {
-                    const noiseVal = (Math.random() - 0.5) * n * 3;
-                    red += noiseVal; green += noiseVal; blue += noiseVal;
-                }
-
-                data[i] = Math.min(255, Math.max(0, red));
-                data[i+1] = Math.min(255, Math.max(0, green));
-                data[i+2] = Math.min(255, Math.max(0, blue));
-            }
-
-            ctx.putImageData(imgData, 0, 0);
-            workingCanvas.width = originalWidth;
-            workingCanvas.height = originalHeight;
-            workingCtx.putImageData(imgData, 0, 0);
-        }
-
-        // --- DOWNLOAD ---
-        function downloadResult() {
-            const canvas = document.getElementById('main-canvas');
-            const link = document.createElement('a');
-            link.download = 'rsb-image-edit.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
+        render();
     </script>
 </body>
 </html>
